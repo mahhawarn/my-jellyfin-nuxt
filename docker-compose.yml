@@ -1,0 +1,15 @@
+version: '3'
+services:
+  node.test:
+    image: node:18.17.1-alpine  # ベースイメージを指定
+    container_name: node.test  # コンテナ名
+    working_dir: /usr/src/app  # コンテナ内での作業ディレクトリ
+    volumes:
+      - .:/usr/src/app  # ホスト側のファイルをコンテナにマウント（開発用）
+      - /usr/src/app/node_modules  # node_modulesをボリュームにマウントして、ホスト側に影響を与えないようにする
+    ports:
+      - "3000:3000"  # Nuxtのデフォルトポートをホストとマッピング
+    #environment:
+    #  - NODE_ENV=development  # 環境変数の設定
+    command: sh -c "npm i && npm run dev" # コンテナ内で実行するコマンド
+
